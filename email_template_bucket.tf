@@ -1,7 +1,7 @@
 #--------------------------------------------------------------
 # Locals
 #--------------------------------------------------------------
-provider "random" {}
+#provider "random" {}
 
 resource "random_id" "bucket_name_id" {
   byte_length = 8
@@ -29,4 +29,8 @@ resource "aws_s3_bucket_object" "email_templates_bucket_objects" {
   key    = each.value
   source = "${path.module}/email-templates/${each.value}"
   etag    = filemd5("${path.module}/email-templates/${each.value}")
+}
+
+output "email_templates_bucket_name_id" {
+  value = aws_s3_bucket.email_templates_bucket.id
 }
