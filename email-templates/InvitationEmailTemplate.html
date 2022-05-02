@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head >            
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,300;1,400&display=swap');
+        </style>
+    </head>
+<body style="font-family:'Poppins', sans-serif;">
+   <table style="
+   direction:ltr;
+    font-family: 'Poppins', sans-serif;   
+    text-align:center;
+    width:600px;
+    margin:auto;
+    font-size:16px;
+    color:#555555;">
+    <tr>
+        <td style="font-size:18px;font-family:'Poppins', sans-serif;font-weight:600;color:#631AD9;" >
+            ${InvitationEmailTemplate_subject}$</td> 
+    </tr>
+    <tr>
+        <td><hr style="border:solid 1px #F4F4F7;margin: 37px 0 55px 0;"/></td> 
+    </tr>
+    <tr> 
+        <td style="font-family:'Poppins', sans-serif;">
+            <p> ${InvitationEmailTemplate_hello}$</p>
+            <p>${InvitationEmailTemplate_inviteLink}$</p>
+        </td>
+    </tr>
+    <tr> 
+        <td>
+            <a href="{{URL}}" bgcolor="#631AD9" target="_blank" style="background-color: #631AD9;
+            width: auto;
+            font-family:'Poppins', sans-serif;
+            border-radius: 2px;
+            padding: 17px 60px;
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-block;
+            margin: 85px auto auto auto;
+            line-height: 18px;
+            font-size: 18px;
+            height: 18px;">
+                ${InvitationEmailTemplate_getStarted}$
+            </a>
+        </td>
+    </tr>
+   
+</table> 
+</body>
+</html>
