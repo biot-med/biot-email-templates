@@ -1,7 +1,6 @@
 #--------------------------------------------------------------
 # Locals
 #--------------------------------------------------------------
-#provider "random" {}
 
 resource "random_id" "bucket_name_id" {
   byte_length = 8
@@ -17,30 +16,36 @@ resource "aws_s3_bucket" "email_templates_bucket" {
   bucket        = local.email_templates_bucket_name
   force_destroy = true
 
-  versioning {
-    enabled = true   
-  }
-  
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
   tags = merge(var.tags, { Name = local.email_templates_bucket_name })
 }
+
+resource "aws_s3_bucket_versioning" "versioning" {
+  bucket = aws_s3_bucket.email_templates_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "s3_server_side_encryption" {
+  bucket = aws_s3_bucket.email_templates_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
 #--------------------------------------------------------------
 # S3 objects
 #--------------------------------------------------------------
-resource "aws_s3_bucket_object" "email_templates_bucket_objects" {
+resource "aws_s3_object" "email_templates_bucket_objects" {
   for_each = fileset("${path.module}/email-templates", "**")
 
   bucket = aws_s3_bucket.email_templates_bucket.id
   key    = each.value
   source = "${path.module}/email-templates/${each.value}"
-  etag    = filemd5("${path.module}/email-templates/${each.value}")
+  etag   = filemd5("${path.module}/email-templates/${each.value}")
 }
 
 output "email_templates_bucket_name_id" {
