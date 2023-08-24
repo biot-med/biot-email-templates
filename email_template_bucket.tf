@@ -1,11 +1,12 @@
-#--------------------------------------------------------------
-# Locals
-#--------------------------------------------------------------
+
 
 resource "random_id" "bucket_name_id" {
   byte_length = 8
 }
 
+#--------------------------------------------------------------
+# Locals
+#--------------------------------------------------------------
 locals {
   email_templates_bucket_name = lower("${var.environment}-${var.project_name}-email-templates-${random_id.bucket_name_id.dec}")
 }
